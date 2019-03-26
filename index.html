@@ -1,0 +1,464 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="jquery.ui.touch-punch.min.js"></script>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+<style>
+    body{
+        font-size: 1vw;
+    }
+#div1 {
+  width: 350px;
+  height: 70px;
+  padding: 10px;
+  border: 1px solid #aaaaaa;
+}
+.heading-box{
+    background-color:coral;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+p{
+    font-size: 1.2vw;
+    margin: 0;
+}
+.kaanna{
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    height: 100%;
+    font-size: 5vw;
+}
+.kaanna2{
+    text-align: center;
+}
+.drag-object{
+    color: black;
+    background-color:gold; 
+    width: 100%; 
+    height: 100%; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    text-align: center;
+}
+.drop-object{
+    background-color: blue;
+    opacity: 0.2;
+    margin-left: 5px;
+}
+.arrow-col{
+    display: flex;
+    justify-content: center;
+}
+#send-puzzle{
+    height: 100%;
+    width: 80%;
+    margin-left: 5px;
+}
+.navbar{
+    margin-bottom: 5px;
+}
+</style>
+<script>
+
+$(document).ready(function() {
+    if (window.innerHeight > window.innerWidth) {
+        $(".container").empty();
+        $(".container").html("<div class='kaanna'><div class='kaanna2'><i class='fas fa-sync-alt fa-3x'></i><br>KÄÄNNÄ LAITE VAAKATASOON</div></div>");
+    }
+    $(window).on('orientationchange', function (event) {
+        location.reload();
+    });
+});
+function allowDrop(ev) {
+  ev.preventDefault();
+}
+
+function drag(ev) {
+  ev.dataTransfer.setData("text", ev.target.id);
+}
+
+function drop(ev) {
+  ev.preventDefault();
+  var data = ev.dataTransfer.getData("text");
+  ev.target.appendChild(document.getElementById(data));
+}
+</script>
+<script>
+        $( function() {
+          $(".drag-object").draggable();
+          $(".drop-object").droppable(
+                {
+                    drop: function (event, ui) {
+                        var draggable = ui.draggable;
+                        var currentID = ui.draggable.attr('id');
+                        console.log(currentID.substring(2,));
+                        console.log($(this).attr('id'));
+                        if($(this).attr('id')==currentID.substring(2,)){
+                            $("#"+currentID).css( "background-color", "green" );
+                        }else{;
+                            $("#"+currentID).css( "background-color", "red" );
+                        }
+                        
+                    }
+                }
+          );
+        } );
+</script>
+<script>
+    var tarkistus = setInterval(tarkistapuzzle,100);
+    function tarkistapuzzle(){
+        var valmis = true;
+        $(".drag-object").each(function(){
+            console.log(this.style.backgroundColor);
+            if(this.style.backgroundColor!="rgb(0, 128, 0)"){
+                valmis = false;
+            }
+        })
+        if(valmis==true){
+            clearInterval(tarkistus);
+            $("#send-puzzle").attr('class','btn btn-info');
+            $("#send-puzzle").attr('data-toggle',"modal");
+            $("#send-puzzle").attr( 'data-target',"#myModal");
+            
+        }
+    }
+</script>
+</head>
+<body style="height: 80vh; width: 100vw">
+        <nav class="navbar navbar-inverse">
+                <div class="container-fluid">
+                  <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span> 
+                    </button>
+                    <a class="navbar-brand" href="#">MER</a>
+                  </div>
+                  <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav">
+                      <li><a href="#">Game</a></li>
+                      <li><a href="#">TV</a></li>
+                      <li><a href="#">Moderator</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                      <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </nav>
+    <div class="container" style="height: 100%; width: 100%">
+            <div class="row" style="height:10%">
+                    <div class="col-xs-1" id="div_test11" style="height:100%">
+                        </div>
+                    <div class="col-xs-2 heading-box" id="div_test12" style="height:100%">
+                        <p>FACTORS AFFECTING HEART RATE (HR)</p>
+                    </div>
+                    <div class="col-xs-1" id="div_test13" style="height:100%">
+                        </div>
+                        <div class="col-xs-7 heading-box" id="div_test14" style="height:100%">
+                                <p>FACTORS AFFECTING STROKE VOLUME (SV)</p>
+                            </div>
+            </div>
+            <div class="row" style="height:1%">
+                    <div class="col-xs-1"  style="height:100%">
+                    </div>
+                    <div class="col-xs-1"  style="height:100%">
+                    </div>
+                    <div class="col-xs-1"  style="height:100%">
+                    </div>
+                    <div class="col-xs-1"  style="height:100%">
+                    </div>
+                    <div class="col-xs-1"  style="height:100%">
+                    </div>
+                    <div class="col-xs-1" style="height:100%">
+                    </div>
+                    <div class="col-xs-1" style="height:100%">
+                    </div>
+                    <div class="col-xs-1" style="height:100%">
+                    </div>
+                    <div class="col-xs-1" style="height:100%">
+                    </div>
+                    <div class="col-xs-1" style="height:100%">
+                    </div>
+                    <div class="col-xs-1" style="height:100%">
+                    </div>
+                    <div class="col-xs-1" style="height:100%">
+                    </div>
+                </div>
+            <div class="row" style="height:12%">
+                    <div class="col-xs-1" id="div_test21" style="height:100%">
+                    </div>
+                    <div class="col-xs-1 drop-object" id="atrialreflex" style="height:100%">
+                    </div>
+                    <div class="col-xs-1" id="div_test23" style="height:100%">
+                    </div>
+                    <div class="col-xs-1" id="div_test24" style="height:100%">
+                    </div>
+                    <div class="col-xs-1 drop-object"id="venousreturn" style="height:100%">
+                    </div>
+                    <div class="col-xs-1 drop-object"id="fillingtime" style="height:100%">    
+                    </div>
+                    <div class="col-xs-1 drop-object"id="autonomicinnervation" style="height:100%">  
+                    </div>
+                    <div class="col-xs-1 drop-object" id="hormones" style="height:100%">
+                    </div>
+                    <div class="col-xs-1 drop-object" id="vasolidation" style="height:100%"> 
+                    </div>
+                    <div class="col-xs-1" id="div_test29" style="height:100%">
+                    </div>
+            </div>
+            <div class="row" style="height:5%">
+                    <div class="col-xs-1"  style="height:100%">
+                    </div>
+                    <div class="col-xs-1"  style="height:100%">
+                            <i class="fas fa-long-arrow-alt-down fa-9x"></i>
+                    </div>
+                    <div class="col-xs-1"  style="height:100%">
+                    </div>
+                    <div class="col-xs-1"  style="height:100%">
+                    </div>
+                    <div class="col-xs-1 arrow-col"  style="height:100%">
+                            <i class="fas fa-long-arrow-alt-down fa-2x"></i>
+                    </div>
+                    <div class="col-xs-1 arrow-col" style="height:100%">
+                            <i class="fas fa-long-arrow-alt-down fa-2x"></i>
+                    </div>
+                    <div class="col-xs-1 arrow-col" style="height:100%">
+                            <i class="fas fa-long-arrow-alt-down fa-2x"></i>
+                    </div>
+                    <div class="col-xs-1 arrow-col" style="height:100%">
+                            <i class="fas fa-long-arrow-alt-down fa-2x"></i>
+                    </div>
+                    <div class="col-xs-1 arrow-col" style="height:100%">
+                            <i class="fas fa-long-arrow-alt-down fa-2x"></i>
+                    </div>
+                    <div class="col-xs-1 arrow-col" style="height:100%">
+                    </div>
+                    <div class="col-xs-1" style="height:100%">
+                    </div>
+                    <div class="col-xs-1" style="height:100%">
+                    </div>
+                </div>
+            <div class="row" style="height:12%">
+                <div class="col-xs-4" id="div_test31" style="height:100%">
+                </div>
+                <div class="col-xs-2 drop-object" id="preload" style="height:100%">
+                </div>
+                <div class="col-xs-2 drop-object" id="contractility" style="height:100%">
+                </div>
+                <div class="col-xs-2 drop-object" id="afterload" style="height:100%">
+                </div>
+                <div class="col-xs-1" id="div_test37" style="height:100%">
+                </div>
+            </div>
+            <div class="row" style="height:5%">
+                <div class="col-xs-1" style="height:100%">
+                </div>
+                <div class="col-xs-1" style="height:100%">
+                </div>
+                <div class="col-xs-1" style="height:100%">
+                </div>
+                <div class="col-xs-1" style="height:100%">
+                </div>
+                <div class="col-xs-1 arrow-col" style="height:100%">
+                        <i class="fas fa-long-arrow-alt-down fa-2x"></i>
+                </div>
+                <div class="col-xs-1 arrow-col" style="height:100%">
+                        <i class="fas fa-long-arrow-alt-down fa-2x"></i>
+                </div>
+                <div class="col-xs-1" style="height:100%">
+                </div>
+                <div class="col-xs-1 arrow-col" style="height:100%">
+                        <i class="fas fa-long-arrow-alt-down fa-2x"></i>
+                </div>
+                <div class="col-xs-1 arrow-col" style="height:100%">
+                        <i class="fas fa-long-arrow-alt-down fa-2x"></i>
+                </div>
+                <div class="col-xs-1" style="height:100%">
+                </div>
+                <div class="col-xs-1" style="height:100%">
+                </div>
+                <div class="col-xs-1" style="height:100%">
+                </div>
+            </div>
+                <div class="row" style="height:12%">
+                    <div class="col-xs-1" id="div_test41" style="height:100%">
+                    </div>
+                    <div class="col-xs-1 drop-object" id="autonomicinnervation" style="height:100%">
+                    </div>
+                    <div class="col-xs-1 drop-object" id="hormones" style="height:100%">
+                    </div>
+                    <div class="col-xs-1" id="div_test44" style="height:100%">
+                    </div>
+                    <div class="col-xs-1 drop-object" id="enddiastolicvolume" style="height:100%">
+                    </div>
+                    <div class="col-xs-4 drop-object" id="endsystolicvolume" style="height:100%">
+                    </div>
+                    <div class="col-xs-2" id="div_test47" style="height:100%">
+                    </div>
+                </div>
+                <div class="row" style="height:5%">
+                        <div class="col-xs-1" style="height:100%">
+                        </div>
+                        <div class="col-xs-1 arrow-col" style="height:100%">
+                                <i class="fas fa-long-arrow-alt-down fa-2x"></i>
+                        </div>
+                        <div class="col-xs-1 arrow-col" style="height:100%">
+                                <i class="fas fa-long-arrow-alt-down fa-2x"></i>
+                        </div>
+                        <div class="col-xs-1" style="height:100%">
+                        </div>
+                        <div class="col-xs-1 arrow-col" style="height:100%">
+                                <i class="fas fa-long-arrow-alt-down fa-2x"></i>
+                        </div>
+                        <div class="col-xs-1" style="height:100%">
+                        </div>
+                        <div class="col-xs-1 arrow-col" style="height:100%">
+                                <i class="fas fa-long-arrow-alt-down fa-2x"></i>
+                        </div>
+                        <div class="col-xs-1" style="height:100%">
+                        </div>
+                        <div class="col-xs-1" style="height:100%">
+                        </div>
+                        <div class="col-xs-1" style="height:100%">
+                        </div>
+                        <div class="col-xs-1" style="height:100%">
+                        </div>
+                        <div class="col-xs-1" style="height:100%">
+                        </div>
+                    </div>
+                <div class="row" style="height:12%">
+                        <div class="col-xs-1" id="div_test51" style="height:100%">
+                        </div>
+                        <div class="col-xs-3 drop-object" id="heartrate" style="height:100%">
+                        </div>
+                        <div class="col-xs-4 drop-object" id="strokevolume" style="height:100%">
+                        </div>
+                        <div class="col-xs-1" id="div_test54" style="height:100%">
+                            <div id="d_atrialreflex" class="ui-widget-content drag-object">
+                                <p>Atrial reflex</p>
+                            </div>
+                            <div id="d_venousreturn" class="ui-widget-content drag-object">
+                                <p>Venous return</p>
+                            </div>
+                            <div id="d_fillingtime" class="ui-widget-content drag-object">
+                                <p>Filling time</p>
+                            </div>
+                            <div id="d_autonomicinnervation" class="ui-widget-content drag-object">
+                                <p>Autonomic innervation</p>
+                            </div>
+                            <div id="d_hormones" class="ui-widget-content drag-object">
+                                <p>Hormones</p>
+                            </div>
+                            <div id="d_vasolidation" class="ui-widget-content drag-object">
+                                <p>Vasolidation</p>
+                            </div>
+                            <div id="d_preload" class="ui-widget-content drag-object">
+                                <p>Preload</p>
+                            </div>
+                            <div id="d_contractility" class="ui-widget-content drag-object">
+                                <p>Contractility</p>
+                            </div>
+                            <div id="d_afterload" class="ui-widget-content drag-object">
+                                <p>Afterload</p>
+                            </div>
+                            <div id="e_autonomicinnervation" class="ui-widget-content drag-object">
+                                <p>Autonomic innervation</p>
+                            </div>
+                            <div id="e_hormones" class="ui-widget-content drag-object">
+                                <p>Hormones</p>
+                            </div>
+                            <div id="d_enddiastolicvolume" class="ui-widget-content drag-object">
+                                <p>End diastolic volume</p>
+                            </div>
+                            <div id="d_endsystolicvolume" class="ui-widget-content drag-object">
+                                <p>End systolic volume</p>
+                            </div>
+                            <div id="d_heartrate" class="ui-widget-content drag-object">
+                                <p>Heart rate</p>
+                            </div>
+                            <div id="d_strokevolume" class="ui-widget-content drag-object">
+                                <p>Stroke Volume = EDV - ESV</p>
+                            </div>
+                    
+                    </div>
+                    <div class="col-xs-2" id="div_test55" style="height:100%">
+                            <button id="send-puzzle" class="btn btn-default disabled"><p>OK!</p></button>
+                    </div>
+                </div>
+                <div class="row" style="height:5%">
+                        <div class="col-xs-1" style="height:100%">
+                        </div>
+                        <div class="col-xs-1" style="height:100%">
+                        </div>
+                        <div class="col-xs-1 arrow-col" style="height:100%">
+                                <i class="fas fa-long-arrow-alt-down fa-2x"></i>
+                        </div>
+                        <div class="col-xs-1" style="height:100%">
+                        </div>
+                        <div class="col-xs-1" style="height:100%">
+                        </div>
+                        <div class="col-xs-1" style="height:100%">
+                        </div>
+                        <div class="col-xs-1 arrow-col" style="height:100%">
+                                <i class="fas fa-long-arrow-alt-down fa-2x"></i>
+                        </div>
+                        <div class="col-xs-1" style="height:100%">
+                        </div>
+                        <div class="col-xs-2" style="height:100%">
+                            
+                        </div>
+                        <div class="col-xs-1" style="height:100%">
+                        </div>
+                        <div class="col-xs-1" style="height:100%">
+                        </div>
+                    </div>
+                    <div class="row" style="height:5%">
+                            <div class="col-xs-1" id="div_test61" style="height:100%">
+                                </div>
+                            <div class="col-xs-7 heading-box" id="div_test62" style="height:100%">
+                                <p>CARDIAC OUTPUT (CO) = HR x SV</p>
+                            </div>
+                            <div class="col-xs-3" id="div_test63" style="height:100%">
+                                    
+                                </div>
+                    </div>
+                    
+            
+        </div>
+        <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+        
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Puzzle solved!</h4>
+            </div>
+            <div class="modal-body">
+              <p>Blood test unlocked</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+
+
+</body>
