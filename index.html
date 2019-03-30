@@ -106,10 +106,13 @@ function drop(ev) {
                     drop: function (event, ui) {
                         var draggable = ui.draggable;
                         var currentID = ui.draggable.attr('id');
-                        console.log(currentID.substring(2,));
-                        console.log($(this).attr('id'));
                         if($(this).attr('id')==currentID.substring(2,)){
                             $("#"+currentID).css( "background-color", "green" );
+                            $(draggable).draggable('disable');
+                            $(draggable).appendTo(this);
+                            $(draggable).css('position','initial');
+                            $(this).css('padding',0);
+                            $(this).css('opacity',1);
                         }else{;
                             $("#"+currentID).css( "background-color", "red" );
                         }
@@ -124,7 +127,6 @@ function drop(ev) {
     function tarkistapuzzle(){
         var valmis = true;
         $(".drag-object").each(function(){
-            console.log(this.style.backgroundColor);
             if(this.style.backgroundColor!="rgb(0, 128, 0)"){
                 valmis = false;
             }
