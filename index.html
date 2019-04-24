@@ -6,7 +6,6 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script src="jquery.ui.touch-punch.min.js"></script>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
@@ -28,7 +27,7 @@
     text-align: center;
 }
 p{
-    font-size: 1.2vw;
+    font-size: 1.5vw;
     margin: 0;
 }
 .kaanna{
@@ -79,6 +78,9 @@ $(document).ready(function() {
     if (window.innerHeight > window.innerWidth) {
         $(".container").empty();
         $(".container").html("<div class='kaanna'><div class='kaanna2'><i class='fas fa-sync-alt fa-3x'></i><br>KÄÄNNÄ LAITE VAAKATASOON</div></div>");
+    }else{
+        // Show the Modal on load
+        $("#myModal2").modal("show");
     }
     $(window).on('orientationchange', function (event) {
         location.reload();
@@ -452,10 +454,10 @@ function drop(ev) {
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal">&times;</button>
-              <h4 class="modal-title">Puzzle solved!</h4>
+              <h4 class="modal-title">Tehtävä ratkaistu!</h4>
             </div>
             <div class="modal-body">
-              <p>Blood test unlocked</p>
+              <p>KOODI = 1234</p>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
@@ -464,6 +466,25 @@ function drop(ev) {
           
         </div>
       </div>
+      <div class="modal fade" id="myModal2" role="dialog">
+            <div class="modal-dialog">
+            
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Sydämen minuuttitilavuus!</h4>
+                </div>
+                <div class="modal-body">
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat.</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+                </div>
+              </div>
+              
+            </div>
+          </div>
 
 
 </body>
